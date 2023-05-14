@@ -11,7 +11,6 @@ async function getPosts() {
 
 export default async function Home() {
   const posts: Post[] = await getPosts();
-  console.log({ posts });
 
   return (
     <main className="container m-auto">
@@ -32,9 +31,11 @@ export default async function Home() {
         {posts.map((post) => (
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="font-semibold text-2xl">{post.title}</h2>
-            <p className="text-gray-500 my-2 leading-relaxed mb-4">
+            <p className="text-gray-700 my-2 leading-relaxed mb-4">
               {post.content.slice(0, 40)}...
             </p>
+
+            <p className="mb-4 text-gray-500">• {post.author.name}</p>
             <Link
               href={`/posts/${post.id}`}
               className="bg-blue-950 text-white p-2 rounded font-semibold hover:bg-blue-900 transition duration-75"

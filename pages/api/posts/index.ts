@@ -1,9 +1,5 @@
 import { prisma } from "../../../prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse, NextRequest } from "next/server";
-
-import { tokenPayload } from "@/types/user.types";
-import jwt from "jsonwebtoken";
 
 export default function Posts(req: NextApiRequest, res: NextApiResponse) {
   console.log({ cook: req.cookies["auth"] });
@@ -20,11 +16,7 @@ export default function Posts(req: NextApiRequest, res: NextApiResponse) {
         .json(`${req.method} requests not supported for this route`);
   }
 
-  interface MyApiRequest extends NextApiRequest {
-    nextUrl?: string;
-  }
-
-  async function getPosts(req: MyApiRequest, res: NextApiResponse) {
+  async function getPosts(req: NextApiRequest, res: NextApiResponse) {
     try {
       const posts = await prisma.post.findMany({
         include: {

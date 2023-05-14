@@ -23,7 +23,7 @@ async function getPost(req: NextApiRequest, res: NextApiResponse) {
   try {
     const post = await prisma.post.findUnique({
       where: {
-        id: parseInt(req.query.id as string),
+        id: req.query.id as string,
       },
       include: {
         author: {
@@ -44,7 +44,7 @@ async function updatePost(req: NextApiRequest, res: NextApiResponse) {
   try {
     const post = await prisma.post.findUnique({
       where: {
-        id: parseInt(req.query.id as string),
+        id: req.query.id as string,
       },
       include: {
         author: {
@@ -65,7 +65,7 @@ async function deletePost(req: NextApiRequest, res: NextApiResponse) {
   try {
     const post = await prisma.post.findUnique({
       where: {
-        id: parseInt(req.query.id as string),
+        id: req.query.id as string,
       },
       include: {
         author: {

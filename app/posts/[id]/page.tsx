@@ -11,21 +11,19 @@ interface ParamsProps {
   };
 }
 
-export async function getPost(postId: number) {
+export async function getPost(postId: string) {
   const res = await axios.get(`${BASE_URL}/api/posts/${postId}`);
   return res.data;
 }
 
 export default async function PostDetails({ params: { id } }: ParamsProps) {
-  const postId = parseInt(id);
-  const post: Post = await getPost(postId);
-  console.log(post);
+  const post: Post = await getPost(id);
 
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <h1 className="tex-3xl font-bold">{post.title}</h1>
-      <p className="text-slate-900">{post.content}</p>
-      <p className="text-slate-500">Added by: {post.author.name}</p>
+      <h1 className="tex-3xl font-bold">{post?.title}</h1>
+      <p className="text-slate-900">{post?.content}</p>
+      <p className="text-slate-500">Added by: {post?.author.name}</p>
       <span className="text-slate-500">
         {moment(post.created_at).fromNow()}
       </span>
