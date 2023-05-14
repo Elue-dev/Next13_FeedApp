@@ -7,7 +7,7 @@ import moment from "moment";
 
 interface ParamsProps {
   params: {
-    id: string;
+    postId: string;
   };
 }
 
@@ -16,8 +16,8 @@ async function getPost(postId: string) {
   return res.data;
 }
 
-export default async function PostDetails({ params: { id } }: ParamsProps) {
-  const post: Post = await getPost(id);
+export default async function PostDetails({ params: { postId } }: ParamsProps) {
+  const post: Post = await getPost(postId);
 
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
