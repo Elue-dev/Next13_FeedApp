@@ -2,7 +2,6 @@ import { prisma } from "../../../prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default function Posts(req: NextApiRequest, res: NextApiResponse) {
-  console.log({ cook: req.cookies["auth"] });
   switch (req.method) {
     case "GET":
       getPosts(req, res);

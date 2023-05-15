@@ -12,7 +12,7 @@ interface ParamsProps {
 }
 
 async function getPost(postId: string) {
-  const res = await axios.get(`${BASE_URL}/api/posts/${postId}`);
+  const res = await axios.get(`http:/localhost:3000/api/posts/${postId}`);
   return res.data;
 }
 

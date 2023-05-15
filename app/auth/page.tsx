@@ -5,7 +5,6 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserPayload } from "@/types/user.types";
-import { setCookie } from "cookies-next";
 
 const initialState: UserPayload = {
   name: "",
@@ -44,7 +43,6 @@ export default function Auth() {
         email,
         password,
       });
-      setCookie("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(res.data));
       setLoading(false);
       router.push("/");

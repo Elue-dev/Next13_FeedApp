@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
 
 export default function RightNav() {
   const router = useRouter();
@@ -15,7 +14,6 @@ export default function RightNav() {
 
   function handleLogout() {
     localStorage.setItem("user", "");
-    deleteCookie("isLoggedIn");
     router.push("/auth");
   }
 
