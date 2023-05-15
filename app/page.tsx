@@ -1,6 +1,5 @@
 import RightNav from "@/components/RightNav";
 import { Post } from "@/types/post.types";
-import { token } from "@/utils/variables";
 import axios from "axios";
 import Link from "next/link";
 
