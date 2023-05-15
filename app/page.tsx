@@ -23,6 +23,7 @@ export default async function Home() {
           >
             Add Post
           </Link>
+          {/* @ts-ignore */}
           <RightNav />
         </div>
       </div>

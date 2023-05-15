@@ -26,7 +26,7 @@ export default function Posts(req: NextApiRequest, res: NextApiResponse) {
     const passwordHash = hashSync(password, 10);
 
     try {
-      const user = await prisma.user.create({
+      await prisma.user.create({
         data: {
           name,
           email,
