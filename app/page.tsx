@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 async function getPosts() {
-  const res = await fetch(`http://localhost:3000/api/posts`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
     headers: {
       authorization: `Bearer ${token}`,
     },

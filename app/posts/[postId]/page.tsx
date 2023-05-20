@@ -1,7 +1,6 @@
 "use client";
 
 import { Post } from "@/types/post.types";
-import { BASE_URL } from "@/utils/variables";
 import moment from "moment";
 
 interface ParamsProps {
@@ -11,7 +10,9 @@ interface ParamsProps {
 }
 
 async function getPost(postId: string) {
-  const res = await fetch(`${BASE_URL}/api/posts/${postId}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}`
+  );
   return res.json();
 }
 
