@@ -1,7 +1,6 @@
 "use client";
 
 import { token } from "@/utils/variables";
-import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserPayload } from "@/types/user.types";
@@ -39,14 +38,6 @@ export default function Auth() {
     setError(false);
 
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
-        {
-          email,
-          password,
-        }
-      );
-
       const call = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`,
         {
@@ -59,7 +50,9 @@ export default function Auth() {
         }
       );
 
-      localStorage.setItem("user", JSON.stringify(res.data));
+      const user = await call.json();
+
+      localStorage.setItem("user", JSON.stringify(user));
       setLoading(false);
       router.push("/");
     } catch (error: any) {
@@ -79,17 +72,26 @@ export default function Auth() {
     setError(false);
 
     try {
-      const res = await axios.post(
+      const call = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/signup`,
         {
-          name,
-          email,
-          password,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
         }
       );
-      alert(res.data);
-      setLoading(false);
-      router.push("/");
+      const user = await call.json();
+      if (user) {
+        setLoading(false);
+        setAuthState("login");
+      }
     } catch (error: any) {
       setLoading(false);
       setError(error.response.data);
