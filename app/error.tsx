@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 interface Props {
-  //   error: Error;
   reset: () => void;
 }
 
