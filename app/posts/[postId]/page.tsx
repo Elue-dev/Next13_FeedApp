@@ -12,8 +12,8 @@ interface ParamsProps {
 }
 
 async function getPost(postId: string) {
-  const res = await axios.get(`${BASE_URL}/api/posts/${postId}`);
-  return res.data;
+  const res = await fetch(`${BASE_URL}/api/posts/${postId}`);
+  return res.json();
 }
 
 export default async function PostDetails({ params: { postId } }: ParamsProps) {

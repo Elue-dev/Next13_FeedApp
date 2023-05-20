@@ -38,6 +38,8 @@ export default function Posts(req: NextApiRequest, res: NextApiResponse) {
 }
 
 const generateToken = (id: string) => {
+  console.log(process.env.JWT_SECRET);
+
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
     expiresIn: process.env.JWT_EXPIRES,
   });

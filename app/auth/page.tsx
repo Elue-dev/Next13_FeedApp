@@ -1,6 +1,6 @@
 "use client";
 
-import { BASE_URL } from "@/utils/variables";
+import { BASE_URL, token } from "@/utils/variables";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -43,6 +43,16 @@ export default function Auth() {
         email,
         password,
       });
+
+      const call = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
       localStorage.setItem("user", JSON.stringify(res.data));
       setLoading(false);
       router.push("/");

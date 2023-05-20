@@ -1,8 +1,7 @@
 "use client";
 
 import { postDetails } from "@/types/post.types";
-import { BASE_URL } from "@/utils/variables";
-import axios from "axios";
+import { BASE_URL, token } from "@/utils/variables";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "@/types/user.types";
@@ -41,15 +40,21 @@ export default function PostForm() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${BASE_URL}/api/posts`, {
-        title,
-        content,
-        authorId: currentUser.id,
+      const call = await fetch(`${BASE_URL}/api/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, content, authorId: currentUser.id }),
       });
-      console.log(res);
 
-      setLoading(false);
-      router.push("/");
+      const response = await call.json();
+
+      if (response) {
+        setLoading(false);
+        router.push("/");
+      }
     } catch (error: any) {
       setLoading(false);
       setError(error.response.data.message);

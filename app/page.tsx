@@ -1,15 +1,28 @@
+"use client";
+
 import RightNav from "@/components/RightNav";
 import { Post } from "@/types/post.types";
-import axios from "axios";
+import { token } from "@/utils/variables";
 import Link from "next/link";
+import Error from "./error";
 
-async function getPosts() {
-  const res = await axios.get(`${process.env.BASE_URL}/api/posts`);
-  return res.data;
+export async function getPosts() {
+  const res = await fetch(`http://localhost:3000/api/posts`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  return res.json();
 }
 
 export default async function Home() {
-  const posts: Post[] = await getPosts();
+  let posts: Post[];
+  try {
+    posts = await getPosts();
+  } catch (error) {
+    // @ts-ignore
+    return <Error error={error} reset={() => {}} />;
+  }
 
   return (
     <main className="container m-auto">
@@ -27,9 +40,9 @@ export default async function Home() {
         </div>
       </div>
       <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-        {posts.length === 0 && <p>No posts yet.</p>}
-        {posts.map((post) => (
-          <div className="bg-white rounded-lg shadow-lg p-6">
+        {posts?.length === 0 && <p>No posts yet.</p>}
+        {posts?.map((post) => (
+          <div key={post.id} className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="font-semibold text-2xl">{post.title}</h2>
             <p className="text-gray-700 my-2 leading-relaxed mb-4">
               {post.content.slice(0, 40)}...

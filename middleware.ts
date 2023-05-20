@@ -23,6 +23,8 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   try {
     await jose.jwtVerify(token, secret);
   } catch (error) {
+    console.log(error);
+
     return new NextResponse(
       JSON.stringify("Token is no longer valid. Please log in again."),
       {
@@ -33,5 +35,5 @@ export async function middleware(req: NextRequest, res: NextResponse) {
 }
 
 export const config = {
-  matcher: ["/api/users"],
+  matcher: ["/api/posts"],
 };
