@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export async function getPosts() {
+async function getPosts() {
   const res = await fetch(`http://localhost:3000/api/posts`, {
     headers: {
       authorization: `Bearer ${token}`,
