@@ -43,7 +43,7 @@ export default function RightNav() {
             >
               Sign Out
             </button>
-            <span> Hi, {currentUser.user.name}</span>
+            <span> Hi, {currentUser.name}</span>
           </>
         )}
       </>

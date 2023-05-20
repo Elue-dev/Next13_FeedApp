@@ -1,6 +1,5 @@
 "use client";
 
-import { token } from "@/utils/variables";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserPayload } from "@/types/user.types";
@@ -44,7 +43,6 @@ export default function Auth() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ email, password }),
         }
@@ -78,7 +76,6 @@ export default function Auth() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             name,

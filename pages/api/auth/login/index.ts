@@ -29,8 +29,9 @@ export default function Posts(req: NextApiRequest, res: NextApiResponse) {
         return res.status(400).json("Invalid credentials provided");
 
       const token = generateToken(user.id);
-      const { password, ...credentials } = user;
-      res.status(200).json({ user: credentials, token });
+      const response = { ...user, token };
+
+      res.status(200).json(response);
     } catch (error) {
       res.status(500).json(error);
     }
