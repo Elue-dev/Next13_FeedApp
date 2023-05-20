@@ -6,6 +6,8 @@ import { Post } from "@/types/post.types";
 import { token } from "@/utils/variables";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 async function getPosts() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
@@ -18,6 +20,19 @@ async function getPosts() {
 
 export default async function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const router = useRouter();
+  const session = useSession();
+  console.log(session);
+  if (session.status === "loading") return "Loading...";
+  if (!session) {
+    router.push("/auth");
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!session) router.push("/auth");
+    }, 3000);
+  }, []);
 
   useEffect(() => {
     getPosts().then((posts) => {

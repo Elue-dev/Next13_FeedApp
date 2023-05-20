@@ -3,6 +3,7 @@
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserPayload } from "@/types/user.types";
+import { signIn } from "next-auth/react";
 
 const initialState: UserPayload = {
   name: "",
@@ -21,6 +22,19 @@ export default function Auth() {
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
+  }
+
+  async function signin() {
+    console.log("ran");
+
+    const data = { redirect: false, email, password };
+    try {
+      const user = await signIn("credentials", data);
+      user && router.push("/");
+      console.log({ userclient: user });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleAuthState() {
@@ -141,6 +155,12 @@ export default function Auth() {
           {authState === "login" ? "Sign up instead" : "Login instead"}
         </p>
       </form>
+      <button
+        onClick={signin}
+        className="bg-red-900 text-white p-2 rounded w-full font-semibold hover:bg-red-950 transition duration-75"
+      >
+        signin
+      </button>
     </div>
   );
 }
