@@ -1,10 +1,12 @@
 "use client";
 
 import RightNav from "@/components/RightNav";
+import { AuthRequiredError } from "@/lib/exceptions";
 import { Post } from "@/types/post.types";
 import { token } from "@/utils/variables";
 import Link from "next/link";
-import Error from "./error";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export async function getPosts() {
   const res = await fetch(`http://localhost:3000/api/posts`, {
@@ -16,13 +18,18 @@ export async function getPosts() {
 }
 
 export default async function Home() {
-  let posts: Post[];
-  try {
-    posts = await getPosts();
-  } catch (error) {
-    // @ts-ignore
-    return <Error error={error} reset={() => {}} />;
-  }
+  const router = useRouter();
+
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    getPosts().then((data) => {
+      setPosts(data);
+    });
+  }, []);
+
+  // const posts: Post[] = await getPosts();
+  // if (!posts) throw new AuthRequiredError();
 
   return (
     <main className="container m-auto">

@@ -2,7 +2,6 @@
 
 import { Post } from "@/types/post.types";
 import { BASE_URL } from "@/utils/variables";
-import axios from "axios";
 import moment from "moment";
 
 interface ParamsProps {
