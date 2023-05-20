@@ -63,7 +63,7 @@ export default function Auth() {
   async function signupUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!name || !email || !password) {
-      return setError("title and content are required");
+      return setError("name, email and password are required");
     }
 
     setLoading(true);
