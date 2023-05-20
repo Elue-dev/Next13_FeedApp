@@ -5,7 +5,6 @@ import { AuthRequiredError } from "@/lib/exceptions";
 import { Post } from "@/types/post.types";
 import { token } from "@/utils/variables";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 async function getPosts() {
@@ -18,13 +17,11 @@ async function getPosts() {
 }
 
 export default async function Home() {
-  const router = useRouter();
-
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    getPosts().then((data) => {
-      setPosts(data);
+    getPosts().then((posts) => {
+      setPosts(posts);
     });
   }, []);
 
